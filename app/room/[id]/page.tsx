@@ -29,15 +29,16 @@ export default function RoomPage() {
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
-      .cyberspace-grid-effect {
-        position: absolute !important;
-        inset: 0 !important;
+      .grid {
+        position: absolute;
+        inset: 0;
         background-image:
           linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px) !important;
-        background-size: 50px 50px !important;
-        transform: perspective(1000px) rotateX(60deg) !important;
-        transform-origin: center center !important;
+          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px);
+        background-size: 50px 50px;
+        transform: perspective(1000px) rotateX(60deg);
+        transform-origin: center center;
+        z-index: 1;
       }
 
       @keyframes cyber-pulse {
@@ -197,7 +198,7 @@ export default function RoomPage() {
       {/* 電脳空間風背景 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
         {/* グリッド線 */}
-        <div className="cyberspace-grid-effect" />
+        <div className="grid" />
 
         {/* サークルエフェクト */}
         {[...Array(15)].map((_, i) => {

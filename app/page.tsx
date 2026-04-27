@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
-      .cyber-grid {
+      .grid {
         position: absolute;
         inset: 0;
         background-image:
@@ -21,6 +21,7 @@ export default function Home() {
         background-size: 50px 50px;
         transform: perspective(1000px) rotateX(60deg);
         transform-origin: center center;
+        z-index: 1;
       }
     `;
     document.head.appendChild(style);
@@ -53,7 +54,7 @@ export default function Home() {
       {/* 電脳空間風背景 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-50">
         {/* グリッド線 */}
-        <div className="cyber-grid" />
+        <div className="grid" />
 
         {/* サークルエフェクト */}
         {[...Array(20)].map((_, i) => {
