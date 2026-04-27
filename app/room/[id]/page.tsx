@@ -145,15 +145,26 @@ export default function RoomPage() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 flex flex-col overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex flex-col overflow-hidden relative">
+      {/* 背景アニメーション */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-cyan-500/10 rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-pink-500/10 rounded-full animate-spin" style={{ animationDuration: '30s' }} />
+      </div>
+
       {/* ヘッダー */}
-      <div className="bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm border-b border-cyan-500/30 text-white p-4 flex justify-between items-center shadow-lg shadow-cyan-500/10 shrink-0">
+      <div className="bg-gradient-to-r from-slate-900/90 via-indigo-900/80 to-purple-900/90 backdrop-blur-sm border-b border-cyan-500/30 text-white p-4 flex justify-between items-center shadow-lg shadow-pink-500/10 shrink-0 relative z-10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/50">
-            <span className="text-xl">🤖</span>
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-pink-500 rounded-lg blur opacity-50 animate-pulse" />
+            <div className="relative w-10 h-10 bg-gradient-to-br from-cyan-500 via-blue-600 to-pink-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/50">
+              <span className="text-xl">🤖</span>
+            </div>
           </div>
           <div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">AI Meeting Room</h1>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">AI Meeting Room</h1>
             <p className="text-xs text-cyan-400/70 font-mono">ROOM: {roomId}</p>
           </div>
         </div>
@@ -169,13 +180,21 @@ export default function RoomPage() {
         {/* メインエリア */}
         <div className="flex-1 flex flex-col min-h-0">
           {/* ビデオエリア */}
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-4 h-64 border-b border-cyan-500/20 shrink-0">
-            <div className="w-full h-full bg-gradient-to-br from-slate-800/50 to-blue-900/30 rounded-xl border border-cyan-500/30 flex items-center justify-center backdrop-blur-sm shadow-inner">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-cyan-500/50">
-                  <span className="text-3xl">🎙️</span>
+          <div className="bg-gradient-to-br from-slate-900 via-indigo-900/50 to-purple-900/50 p-4 h-64 border-b border-pink-500/20 shrink-0 relative">
+            <div className="w-full h-full bg-gradient-to-br from-slate-800/50 to-purple-900/30 rounded-xl border border-cyan-500/30 flex items-center justify-center backdrop-blur-sm shadow-inner relative overflow-hidden">
+              {/* ホログラム風エフェクト */}
+              <div className="absolute inset-0">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-2 border-cyan-400/30 rounded-full animate-ping" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-pink-400/30 rounded-full animate-pulse" />
+              </div>
+              <div className="text-center relative z-10">
+                <div className="relative w-20 h-20 mx-auto mb-3">
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-pink-500/20 rounded-full blur-md animate-pulse" />
+                  <div className="relative w-20 h-20 bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-pink-500/20 rounded-full flex items-center justify-center border border-cyan-500/50 shadow-lg shadow-cyan-500/30">
+                    <span className="text-4xl">🎙️</span>
+                  </div>
                 </div>
-                <p className="text-cyan-300/60 font-mono text-sm">VOICE COMMUNICATION</p>
+                <p className="text-transparent bg-gradient-to-r from-cyan-300 to-pink-300 bg-clip-text font-mono text-sm font-bold">VOICE COMMUNICATION</p>
                 <p className="text-cyan-400/40 text-xs mt-1">Daily.co Integration Pending</p>
               </div>
             </div>
@@ -190,16 +209,19 @@ export default function RoomPage() {
                   className={`flex ${msg.user === userName ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-xl backdrop-blur-sm shadow-lg ${
+                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-xl backdrop-blur-sm shadow-lg relative ${
                       msg.isAI
-                        ? 'bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-purple-500/50 shadow-purple-500/20'
+                        ? 'bg-gradient-to-br from-purple-900/60 to-pink-900/60 border border-purple-400/50 shadow-purple-500/30'
                         : msg.user === 'システム'
                         ? 'bg-slate-800/30 border border-cyan-500/20 text-cyan-300/60 text-sm'
                         : msg.user === userName
-                        ? 'bg-gradient-to-br from-cyan-600/80 to-blue-600/80 text-white border border-cyan-400/30 shadow-cyan-500/30'
+                        ? 'bg-gradient-to-br from-cyan-600/80 via-blue-600/80 to-purple-600/60 text-white border border-cyan-400/30 shadow-cyan-500/30'
                         : 'bg-slate-800/50 text-slate-200 border border-slate-600/30'
                     }`}
                   >
+                    {msg.isAI && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl blur-sm -z-10" />
+                    )}
                     {msg.user !== userName && msg.user !== 'システム' && (
                       <p className="text-xs font-semibold mb-1 font-mono">
                         {msg.isAI ? '🤖 ' : '👤 '}
@@ -220,7 +242,7 @@ export default function RoomPage() {
             </div>
 
             {/* 入力エリア - 絶対配置で最下部に固定 */}
-            <div className="absolute bottom-0 left-0 right-0 border-t border-cyan-500/30 p-4 bg-gradient-to-r from-slate-900 to-blue-900 backdrop-blur-md shadow-lg shadow-cyan-500/10">
+            <div className="absolute bottom-0 left-0 right-0 border-t border-pink-500/30 p-4 bg-gradient-to-r from-slate-900 via-indigo-900 to-purple-900 backdrop-blur-md shadow-lg shadow-pink-500/10">
               <div className="flex gap-3">
                 <div
                   ref={inputRef}
@@ -237,9 +259,10 @@ export default function RoomPage() {
                 />
                 <button
                   onClick={sendMessage}
-                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-500/30 border border-cyan-400/30 shrink-0"
+                  className="relative bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-500 hover:via-blue-500 hover:to-purple-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-pink-500/30 border border-pink-400/30 shrink-0 overflow-hidden group"
                 >
-                  送信
+                  <span className="relative z-10">送信</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition" />
                 </button>
               </div>
             </div>
@@ -247,9 +270,10 @@ export default function RoomPage() {
         </div>
 
         {/* サイドバー */}
-        <div className="w-72 bg-gradient-to-b from-slate-900 to-slate-950 border-l border-cyan-500/30 text-white p-4 flex flex-col shadow-2xl">
-          <div className="mb-4 pb-3 border-b border-cyan-500/30">
-            <h2 className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-mono">PARTICIPANTS</h2>
+        <div className="w-72 bg-gradient-to-b from-slate-900 via-indigo-950 to-purple-950 border-l border-cyan-500/30 text-white p-4 flex flex-col shadow-2xl relative">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/5 rounded-full blur-2xl" />
+          <div className="mb-4 pb-3 border-b border-cyan-500/30 relative z-10">
+            <h2 className="text-lg font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-pink-400 bg-clip-text text-transparent font-mono">PARTICIPANTS</h2>
             <p className="text-xs text-cyan-400/60 mt-1 font-mono">{participants.length + 1} ACTIVE</p>
           </div>
 
@@ -264,15 +288,19 @@ export default function RoomPage() {
               </div>
             </div>
             {participants.map((p) => (
-              <div key={p.id} className="flex items-center gap-3 p-3 bg-slate-800/30 rounded-xl border border-slate-600/30 backdrop-blur-sm">
-                <span className={`w-10 h-10 rounded-full flex items-center justify-center text-sm shadow-lg ${
-                  p.isAI ? 'bg-gradient-to-br from-purple-600 to-pink-600 shadow-purple-500/50' : 'bg-gradient-to-br from-green-600 to-emerald-600 shadow-green-500/50'
-                }`}>
-                  {p.isAI ? '🤖' : '👤'}
-                </span>
-                <div className="flex-1 min-w-0">
+              <div key={p.id} className="flex items-center gap-3 p-3 bg-slate-800/30 rounded-xl border border-slate-600/30 backdrop-blur-sm relative">
+                {p.isAI && <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-xl" />}
+                <div className="relative">
+                  {p.isAI && <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur opacity-50 animate-pulse" />}
+                  <span className={`relative w-10 h-10 rounded-full flex items-center justify-center text-sm shadow-lg ${
+                    p.isAI ? 'bg-gradient-to-br from-purple-600 to-pink-600 shadow-purple-500/50' : 'bg-gradient-to-br from-green-600 to-emerald-600 shadow-green-500/50'
+                  }`}>
+                    {p.isAI ? '🤖' : '👤'}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0 relative">
                   <span className="text-sm font-mono text-slate-200 block truncate">{p.name}</span>
-                  {p.isAI && <span className="text-xs text-purple-400/70">AI AGENT</span>}
+                  {p.isAI && <span className="text-xs bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">AI AGENT</span>}
                 </div>
               </div>
             ))}
