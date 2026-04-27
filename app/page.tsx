@@ -1,12 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
   const [roomName, setRoomName] = useState('');
   const [userName, setUserName] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const createRoom = () => {
     if (!roomName.trim() || !userName.trim()) {
@@ -43,20 +48,28 @@ export default function Home() {
         }} />
 
         {/* サークルエフェクト */}
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute border border-cyan-500/20 rounded-full animate-pulse"
-            style={{
-              width: `${Math.random() * 250 + 80}px`,
-              height: `${Math.random() * 250 + 80}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${Math.random() * 4 + 3}s`
-            }}
-          />
-        ))}
+        {isMounted && [...Array(20)].map((_, i) => {
+          const size = (i * 15 + 80) % 250 + 80;
+          const top = (i * 19 + 15) % 100;
+          const left = (i * 27 + 25) % 100;
+          const delay = (i * 0.4) % 4;
+          const duration = (i * 0.5) % 4 + 3;
+
+          return (
+            <div
+              key={i}
+              className="absolute border border-cyan-500/20 rounded-full animate-pulse"
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                top: `${top}%`,
+                left: `${left}%`,
+                animationDelay: `${delay}s`,
+                animationDuration: `${duration}s`
+              }}
+            />
+          );
+        })}
 
         {/* 光の線 */}
         <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />

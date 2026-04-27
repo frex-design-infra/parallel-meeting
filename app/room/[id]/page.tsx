@@ -31,11 +31,17 @@ export default function RoomPage() {
   const [isConnected, setIsConnected] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const socketRef = useRef<Socket | null>(null);
   const dailyRef = useRef<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
+
+  // マウント確認
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Socket.io接続
   useEffect(() => {
@@ -160,20 +166,28 @@ export default function RoomPage() {
         }} />
 
         {/* サークルエフェクト */}
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute border border-cyan-500/20 rounded-full animate-pulse"
-            style={{
-              width: `${Math.random() * 200 + 50}px`,
-              height: `${Math.random() * 200 + 50}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 3 + 2}s`
-            }}
-          />
-        ))}
+        {isMounted && [...Array(15)].map((_, i) => {
+          const size = (i * 13 + 50) % 200 + 50;
+          const top = (i * 17 + 10) % 100;
+          const left = (i * 23 + 20) % 100;
+          const delay = (i * 0.3) % 3;
+          const duration = (i * 0.4) % 3 + 2;
+
+          return (
+            <div
+              key={i}
+              className="absolute border border-cyan-500/20 rounded-full animate-pulse"
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                top: `${top}%`,
+                left: `${left}%`,
+                animationDelay: `${delay}s`,
+                animationDuration: `${duration}s`
+              }}
+            />
+          );
+        })}
 
         {/* 光の線 */}
         <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
