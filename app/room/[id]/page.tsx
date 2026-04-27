@@ -300,8 +300,8 @@ export default function RoomPage() {
           </div>
 
           {/* チャットエリア */}
-          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0 overflow-hidden relative">
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin pb-32">
+          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0 overflow-hidden">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -340,8 +340,8 @@ export default function RoomPage() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* 入力エリア - 絶対配置で最下部に固定 */}
-            <div className="absolute bottom-0 left-0 right-0 border-t border-pink-500/30 p-4 bg-gradient-to-r from-slate-900 via-indigo-900 to-purple-900 backdrop-blur-md shadow-lg shadow-pink-500/10">
+            {/* 入力エリア - 通常配置に変更 */}
+            <div className="border-t border-pink-500/30 p-4 bg-gradient-to-r from-slate-900 via-indigo-900 to-purple-900 backdrop-blur-md shadow-lg shadow-pink-500/10 shrink-0">
               <div className="flex gap-2 items-center">
                 {/* 左側アイコン（Nアイコンがここに表示される） */}
                 <div className="w-12 h-12 shrink-0" />
