@@ -251,7 +251,7 @@ export default function RoomPage() {
                   onKeyDown={handleKeyDown}
                   suppressContentEditableWarning
                   data-placeholder="メッセージを入力..."
-                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white backdrop-blur-sm font-mono min-h-[48px] max-h-[120px] overflow-y-auto"
+                  className="flex-1 pl-12 pr-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white backdrop-blur-sm font-mono min-h-[48px] max-h-[120px] overflow-y-auto"
                   style={{
                     wordBreak: 'break-word',
                     whiteSpace: 'pre-wrap'
