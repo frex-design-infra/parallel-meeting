@@ -300,7 +300,7 @@ export default function RoomPage() {
           </div>
 
           {/* チャットエリア */}
-          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0 overflow-hidden relative z-10">
+          <div className="flex-1 bg-gradient-to-b from-slate-950/50 to-slate-900/50 flex flex-col min-h-0 overflow-hidden relative z-10">
             <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin">
               {messages.map((msg) => (
                 <div
