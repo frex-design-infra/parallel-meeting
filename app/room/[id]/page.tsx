@@ -127,16 +127,23 @@ export default function RoomPage() {
   };
 
   return (
-    <div className="h-screen bg-gray-900 flex flex-col">
+    <div className="h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 flex flex-col">
       {/* ヘッダー */}
-      <div className="bg-gray-800 text-white p-4 flex justify-between items-center">
-        <div>
-          <h1 className="text-xl font-bold">🤖 AI Meeting Room</h1>
-          <p className="text-sm text-gray-400">ルーム: {roomId}</p>
+      <div className="bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm border-b border-cyan-500/30 text-white p-4 flex justify-between items-center shadow-lg shadow-cyan-500/10">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/50">
+            <span className="text-xl">🤖</span>
+          </div>
+          <div>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">AI Meeting Room</h1>
+            <p className="text-xs text-cyan-400/70 font-mono">ROOM: {roomId}</p>
+          </div>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-sm">👤 {userName}</span>
-          <span className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+          <div className="flex items-center gap-2 bg-slate-800/50 px-3 py-1.5 rounded-full border border-cyan-500/30">
+            <span className="text-sm font-mono text-cyan-300">{userName}</span>
+            <span className={`w-2 h-2 rounded-full animate-pulse ${isConnected ? 'bg-green-400 shadow-lg shadow-green-400/50' : 'bg-red-400 shadow-lg shadow-red-400/50'}`} />
+          </div>
         </div>
       </div>
 
@@ -144,39 +151,45 @@ export default function RoomPage() {
         {/* メインエリア */}
         <div className="flex-1 flex flex-col">
           {/* ビデオエリア */}
-          <div className="bg-gray-800 p-4 h-64">
-            <div className="w-full h-full bg-gray-700 rounded-lg flex items-center justify-center">
-              <p className="text-gray-400">音声通話エリア（Daily.co統合予定）</p>
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-4 h-64 border-b border-cyan-500/20">
+            <div className="w-full h-full bg-gradient-to-br from-slate-800/50 to-blue-900/30 rounded-xl border border-cyan-500/30 flex items-center justify-center backdrop-blur-sm shadow-inner">
+              <div className="text-center">
+                <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-cyan-500/50">
+                  <span className="text-3xl">🎙️</span>
+                </div>
+                <p className="text-cyan-300/60 font-mono text-sm">VOICE COMMUNICATION</p>
+                <p className="text-cyan-400/40 text-xs mt-1">Daily.co Integration Pending</p>
+              </div>
             </div>
           </div>
 
           {/* チャットエリア */}
-          <div className="flex-1 bg-white flex flex-col min-h-0">
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-cyan-500/30 scrollbar-track-transparent">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
                   className={`flex ${msg.user === userName ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-xl backdrop-blur-sm shadow-lg ${
                       msg.isAI
-                        ? 'bg-purple-100 border border-purple-300'
+                        ? 'bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-purple-500/50 shadow-purple-500/20'
                         : msg.user === 'システム'
-                        ? 'bg-gray-100 text-gray-600 text-sm'
+                        ? 'bg-slate-800/30 border border-cyan-500/20 text-cyan-300/60 text-sm'
                         : msg.user === userName
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-200 text-gray-800'
+                        ? 'bg-gradient-to-br from-cyan-600/80 to-blue-600/80 text-white border border-cyan-400/30 shadow-cyan-500/30'
+                        : 'bg-slate-800/50 text-slate-200 border border-slate-600/30'
                     }`}
                   >
                     {msg.user !== userName && msg.user !== 'システム' && (
-                      <p className="text-xs font-semibold mb-1">
-                        {msg.isAI ? '🤖 ' : ''}
-                        {msg.user}
+                      <p className="text-xs font-semibold mb-1 font-mono">
+                        {msg.isAI ? '🤖 ' : '👤 '}
+                        <span className={msg.isAI ? 'text-purple-300' : 'text-cyan-300'}>{msg.user}</span>
                       </p>
                     )}
                     <p className="break-words">{msg.text}</p>
-                    <p className="text-xs opacity-70 mt-1">
+                    <p className="text-xs opacity-50 mt-1 font-mono">
                       {new Date(msg.timestamp).toLocaleTimeString('ja-JP', {
                         hour: '2-digit',
                         minute: '2-digit',
@@ -189,19 +202,19 @@ export default function RoomPage() {
             </div>
 
             {/* 入力エリア */}
-            <div className="border-t border-gray-200 p-4 bg-white shrink-0">
-              <div className="flex gap-2">
+            <div className="border-t border-cyan-500/30 p-4 bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm shrink-0 shadow-lg shadow-cyan-500/10">
+              <div className="flex gap-3">
                 <input
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="メッセージを入力..."
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono"
                 />
                 <button
                   onClick={sendMessage}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition shrink-0"
+                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-500/30 border border-cyan-400/30 shrink-0"
                 >
                   送信
                 </button>
@@ -211,46 +224,62 @@ export default function RoomPage() {
         </div>
 
         {/* サイドバー */}
-        <div className="w-64 bg-gray-800 text-white p-4 flex flex-col">
-          <h2 className="text-lg font-bold mb-4">参加者 ({participants.length + 1})</h2>
-          <div className="flex-1 overflow-y-auto space-y-2">
-            <div className="flex items-center gap-2 p-2 bg-gray-700 rounded">
-              <span className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm">
+        <div className="w-72 bg-gradient-to-b from-slate-900 to-slate-950 border-l border-cyan-500/30 text-white p-4 flex flex-col shadow-2xl">
+          <div className="mb-4 pb-3 border-b border-cyan-500/30">
+            <h2 className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-mono">PARTICIPANTS</h2>
+            <p className="text-xs text-cyan-400/60 mt-1 font-mono">{participants.length + 1} ACTIVE</p>
+          </div>
+
+          <div className="flex-1 overflow-y-auto space-y-2 scrollbar-thin scrollbar-thumb-cyan-500/30 scrollbar-track-transparent">
+            <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-cyan-900/30 to-blue-900/30 rounded-xl border border-cyan-500/30 shadow-lg shadow-cyan-500/10">
+              <span className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-sm shadow-lg shadow-cyan-500/50">
                 👤
               </span>
-              <span className="text-sm">{userName} (あなた)</span>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-mono text-cyan-300 block truncate">{userName}</span>
+                <span className="text-xs text-cyan-400/50">YOU</span>
+              </div>
             </div>
             {participants.map((p) => (
-              <div key={p.id} className="flex items-center gap-2 p-2 bg-gray-700 rounded">
-                <span className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-sm">
+              <div key={p.id} className="flex items-center gap-3 p-3 bg-slate-800/30 rounded-xl border border-slate-600/30 backdrop-blur-sm">
+                <span className={`w-10 h-10 rounded-full flex items-center justify-center text-sm shadow-lg ${
+                  p.isAI ? 'bg-gradient-to-br from-purple-600 to-pink-600 shadow-purple-500/50' : 'bg-gradient-to-br from-green-600 to-emerald-600 shadow-green-500/50'
+                }`}>
                   {p.isAI ? '🤖' : '👤'}
                 </span>
-                <span className="text-sm">{p.name}</span>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm font-mono text-slate-200 block truncate">{p.name}</span>
+                  {p.isAI && <span className="text-xs text-purple-400/70">AI AGENT</span>}
+                </div>
               </div>
             ))}
           </div>
 
           {/* コントロール */}
-          <div className="mt-4 space-y-2">
+          <div className="mt-4 space-y-2 pt-4 border-t border-cyan-500/30">
             <button
               onClick={toggleMute}
-              className={`w-full py-2 rounded-lg font-semibold transition ${
-                isMuted ? 'bg-red-600 hover:bg-red-700' : 'bg-gray-600 hover:bg-gray-700'
+              className={`w-full py-3 rounded-xl font-semibold transition border shadow-lg ${
+                isMuted
+                  ? 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 border-red-400/30 shadow-red-500/30'
+                  : 'bg-slate-800/50 hover:bg-slate-700/50 border-slate-600/30'
               }`}
             >
               {isMuted ? '🔇 ミュート中' : '🎤 ミュート'}
             </button>
             <button
               onClick={toggleVideo}
-              className={`w-full py-2 rounded-lg font-semibold transition ${
-                isVideoOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-600 hover:bg-gray-700'
+              className={`w-full py-3 rounded-xl font-semibold transition border shadow-lg ${
+                isVideoOn
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 border-blue-400/30 shadow-blue-500/30'
+                  : 'bg-slate-800/50 hover:bg-slate-700/50 border-slate-600/30'
               }`}
             >
               {isVideoOn ? '📹 ビデオON' : '📹 ビデオOFF'}
             </button>
             <button
               onClick={leaveRoom}
-              className="w-full bg-red-600 hover:bg-red-700 py-2 rounded-lg font-semibold transition"
+              className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 py-3 rounded-xl font-semibold transition border border-red-400/30 shadow-lg shadow-red-500/30"
             >
               退出
             </button>
