@@ -31,17 +31,11 @@ export default function RoomPage() {
   const [isConnected, setIsConnected] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   const socketRef = useRef<Socket | null>(null);
   const dailyRef = useRef<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
-
-  // マウント確認
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   // Socket.io接続
   useEffect(() => {
@@ -166,7 +160,7 @@ export default function RoomPage() {
         }} />
 
         {/* サークルエフェクト */}
-        {isMounted && [...Array(15)].map((_, i) => {
+        {[...Array(15)].map((_, i) => {
           const size = (i * 13 + 50) % 200 + 50;
           const top = (i * 17 + 10) % 100;
           const left = (i * 23 + 20) % 100;

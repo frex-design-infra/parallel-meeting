@@ -1,17 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
   const [roomName, setRoomName] = useState('');
   const [userName, setUserName] = useState('');
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const createRoom = () => {
     if (!roomName.trim() || !userName.trim()) {
@@ -48,7 +43,7 @@ export default function Home() {
         }} />
 
         {/* サークルエフェクト */}
-        {isMounted && [...Array(20)].map((_, i) => {
+        {[...Array(20)].map((_, i) => {
           const size = (i * 15 + 80) % 250 + 80;
           const top = (i * 19 + 15) % 100;
           const left = (i * 27 + 25) % 100;
