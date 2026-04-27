@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
   const [userName, setUserName] = useState('');
 
   // グリッド線用のCSSを直接埋め込み
-  React.useEffect(() => {
+  useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
       .cyber-grid {
