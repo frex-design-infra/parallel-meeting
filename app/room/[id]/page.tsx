@@ -243,23 +243,31 @@ export default function RoomPage() {
 
             {/* 入力エリア - 絶対配置で最下部に固定 */}
             <div className="absolute bottom-0 left-0 right-0 border-t border-pink-500/30 p-4 bg-gradient-to-r from-slate-900 via-indigo-900 to-purple-900 backdrop-blur-md shadow-lg shadow-pink-500/10">
-              <div className="flex gap-3">
-                <div
-                  ref={inputRef}
-                  contentEditable
-                  onInput={handleInput}
-                  onKeyDown={handleKeyDown}
-                  suppressContentEditableWarning
-                  data-placeholder="メッセージを入力..."
-                  className="flex-1 pl-12 pr-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white backdrop-blur-sm font-mono min-h-[48px] max-h-[120px] overflow-y-auto"
-                  style={{
-                    wordBreak: 'break-word',
-                    whiteSpace: 'pre-wrap'
-                  }}
-                />
+              <div className="flex gap-3 items-end">
+                {/* 左側アイコンボタン */}
+                <button className="w-10 h-10 bg-slate-800/50 border border-cyan-500/30 rounded-lg flex items-center justify-center text-cyan-400 hover:bg-slate-700/50 transition shrink-0">
+                  ➕
+                </button>
+
+                <div className="flex-1 relative">
+                  <div
+                    ref={inputRef}
+                    contentEditable
+                    onInput={handleInput}
+                    onKeyDown={handleKeyDown}
+                    suppressContentEditableWarning
+                    data-placeholder="メッセージを入力..."
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white backdrop-blur-sm font-mono min-h-[48px] max-h-[120px] overflow-y-auto"
+                    style={{
+                      wordBreak: 'break-word',
+                      whiteSpace: 'pre-wrap'
+                    }}
+                  />
+                </div>
+
                 <button
                   onClick={sendMessage}
-                  className="relative bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-500 hover:via-blue-500 hover:to-purple-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-pink-500/30 border border-pink-400/30 shrink-0 overflow-hidden group"
+                  className="relative bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-500 hover:via-blue-500 hover:to-purple-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-pink-500/30 border border-pink-400/30 shrink-0 overflow-hidden group h-[48px]"
                 >
                   <span className="relative z-10">送信</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition" />
