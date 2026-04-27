@@ -29,12 +29,45 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* 背景アニメーション */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* 電脳空間風背景 */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        {/* グリッド線 */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+          transform: 'perspective(1000px) rotateX(60deg)',
+          transformOrigin: 'center center'
+        }} />
+
+        {/* サークルエフェクト */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute border border-cyan-500/20 rounded-full animate-pulse"
+            style={{
+              width: `${Math.random() * 250 + 80}px`,
+              height: `${Math.random() * 250 + 80}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${Math.random() * 4 + 3}s`
+            }}
+          />
+        ))}
+
+        {/* 光の線 */}
         <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-cyan-500/5 rounded-full" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-pink-500/5 rounded-full animate-spin" style={{ animationDuration: '40s' }} />
+
+        {/* 中央の大きなサークル */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="w-[1000px] h-[1000px] border border-cyan-500/8 rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] border border-pink-500/8 rounded-full animate-spin" style={{ animationDuration: '40s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-cyan-500/12 rounded-full animate-spin" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
+        </div>
       </div>
 
       <div className="bg-gradient-to-br from-slate-900/90 via-indigo-900/80 to-purple-900/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-pink-500/20 p-8 max-w-md w-full border border-cyan-500/30 relative z-10">
