@@ -151,7 +151,7 @@ export default function RoomPage() {
           </div>
 
           {/* チャットエリア */}
-          <div className="flex-1 bg-white flex flex-col">
+          <div className="flex-1 bg-white flex flex-col min-h-0">
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
               {messages.map((msg) => (
                 <div
@@ -189,7 +189,7 @@ export default function RoomPage() {
             </div>
 
             {/* 入力エリア */}
-            <div className="border-t border-gray-200 p-4">
+            <div className="border-t border-gray-200 p-4 bg-white shrink-0">
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -201,7 +201,7 @@ export default function RoomPage() {
                 />
                 <button
                   onClick={sendMessage}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition shrink-0"
                 >
                   送信
                 </button>
