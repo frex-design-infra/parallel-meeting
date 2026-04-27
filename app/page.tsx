@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
-      .grid {
+      .cyberspace-grid {
         position: absolute;
         inset: 0;
         background-image:
@@ -21,7 +21,7 @@ export default function Home() {
         background-size: 50px 50px;
         transform: perspective(1000px) rotateX(60deg);
         transform-origin: center center;
-        z-index: 1;
+        pointer-events: none;
       }
     `;
     document.head.appendChild(style);
@@ -52,9 +52,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex items-center justify-center p-4 relative overflow-hidden">
       {/* 電脳空間風背景 */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-50">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* グリッド線 */}
-        <div className="grid" />
+        <div className="cyberspace-grid" />
 
         {/* サークルエフェクト */}
         {[...Array(20)].map((_, i) => {
