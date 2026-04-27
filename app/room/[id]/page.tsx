@@ -158,7 +158,7 @@ export default function RoomPage() {
     };
 
     socketRef.current.emit('chat-message', { roomId, message });
-    setMessages(prev => [...prev, message]);
+    // ローカルでの追加を削除（サーバーからのエコーバックで追加される）
 
     // タチコマAIに応答をリクエスト
     socketRef.current.emit('request-ai-response', { roomId, message: inputText });
