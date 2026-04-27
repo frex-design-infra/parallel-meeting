@@ -164,8 +164,8 @@ export default function RoomPage() {
           </div>
 
           {/* チャットエリア */}
-          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0">
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-cyan-500/30 scrollbar-track-transparent">
+          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0 relative">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-cyan-500/30 scrollbar-track-transparent pb-4">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -202,7 +202,7 @@ export default function RoomPage() {
             </div>
 
             {/* 入力エリア */}
-            <div className="border-t border-cyan-500/30 p-4 bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm shrink-0 shadow-lg shadow-cyan-500/10">
+            <div className="border-t border-cyan-500/30 p-4 bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm shrink-0 shadow-lg shadow-cyan-500/10 relative z-10">
               <div className="flex gap-3">
                 <input
                   type="text"
@@ -210,11 +210,11 @@ export default function RoomPage() {
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="メッセージを入力..."
-                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono"
+                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono relative z-20"
                 />
                 <button
                   onClick={sendMessage}
-                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-500/30 border border-cyan-400/30 shrink-0"
+                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-500/30 border border-cyan-400/30 shrink-0 relative z-20"
                 >
                   送信
                 </button>
