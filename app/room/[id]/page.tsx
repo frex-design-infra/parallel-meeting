@@ -127,9 +127,9 @@ export default function RoomPage() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 flex flex-col">
+    <div className="h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 flex flex-col overflow-hidden">
       {/* ヘッダー */}
-      <div className="bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm border-b border-cyan-500/30 text-white p-4 flex justify-between items-center shadow-lg shadow-cyan-500/10">
+      <div className="bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm border-b border-cyan-500/30 text-white p-4 flex justify-between items-center shadow-lg shadow-cyan-500/10 shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/50">
             <span className="text-xl">🤖</span>
@@ -147,11 +147,11 @@ export default function RoomPage() {
         </div>
       </div>
 
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden min-h-0">
         {/* メインエリア */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-h-0">
           {/* ビデオエリア */}
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-4 h-64 border-b border-cyan-500/20">
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-4 h-64 border-b border-cyan-500/20 shrink-0">
             <div className="w-full h-full bg-gradient-to-br from-slate-800/50 to-blue-900/30 rounded-xl border border-cyan-500/30 flex items-center justify-center backdrop-blur-sm shadow-inner">
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-cyan-500/50">
@@ -164,8 +164,8 @@ export default function RoomPage() {
           </div>
 
           {/* チャットエリア */}
-          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0 relative">
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-cyan-500/30 scrollbar-track-transparent pb-4">
+          <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0 overflow-hidden relative">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin pb-20">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -201,8 +201,8 @@ export default function RoomPage() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* 入力エリア */}
-            <div className="border-t border-cyan-500/30 p-4 bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-sm shrink-0 shadow-lg shadow-cyan-500/10 relative z-10">
+            {/* 入力エリア - 絶対配置で最下部に固定 */}
+            <div className="absolute bottom-0 left-0 right-0 border-t border-cyan-500/30 p-4 bg-gradient-to-r from-slate-900 to-blue-900 backdrop-blur-md shadow-lg shadow-cyan-500/10">
               <div className="flex gap-3">
                 <input
                   type="text"
@@ -210,11 +210,11 @@ export default function RoomPage() {
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="メッセージを入力..."
-                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono relative z-20"
+                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono"
                 />
                 <button
                   onClick={sendMessage}
-                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-500/30 border border-cyan-400/30 shrink-0 relative z-20"
+                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-8 py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-500/30 border border-cyan-400/30 shrink-0"
                 >
                   送信
                 </button>
