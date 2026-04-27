@@ -25,6 +25,54 @@ export default function RoomPage() {
   const roomId = params.id as string;
   const userName = searchParams.get('name') || 'ゲスト';
 
+  // 電脳空間用のスタイル
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .cyberspace-grid-effect {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px);
+        background-size: 50px 50px;
+        transform: perspective(1000px) rotateX(60deg);
+        transform-origin: center center;
+      }
+
+      @keyframes cyber-pulse {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.05); }
+      }
+
+      .cyber-circle {
+        animation: cyber-pulse 3s ease-in-out infinite;
+      }
+
+      @keyframes cyber-spin {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+
+      @keyframes cyber-spin-reverse {
+        from { transform: translate(-50%, -50%) rotate(360deg); }
+        to { transform: translate(-50%, -50%) rotate(0deg); }
+      }
+
+      .cyber-spin-slow {
+        animation: cyber-spin 30s linear infinite;
+      }
+
+      .cyber-spin-fast {
+        animation: cyber-spin-reverse 20s linear infinite;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [participants, setParticipants] = useState<Participant[]>([]);
@@ -148,32 +196,28 @@ export default function RoomPage() {
     <div className="h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex flex-col overflow-hidden relative">
       {/* 電脳空間風背景 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
-        {/* グリッド線 - SVGで実装 */}
-        <svg className="absolute inset-0 w-full h-full" style={{ transform: 'perspective(1000px) rotateX(60deg)', transformOrigin: 'center center' }}>
-          <defs>
-            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-              <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(6, 182, 212, 0.3)" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
+        {/* グリッド線 */}
+        <div className="cyberspace-grid-effect" />
 
         {/* サークルエフェクト */}
         {[...Array(15)].map((_, i) => {
           const size = (i * 13 + 50) % 200 + 50;
           const top = (i * 17 + 10) % 100;
           const left = (i * 23 + 20) % 100;
+          const delay = (i * 0.3) % 3;
+          const duration = (i * 0.4) % 3 + 2;
 
           return (
             <div
               key={i}
-              className="absolute border-2 border-cyan-400/40 rounded-full animate-pulse"
+              className="absolute border-2 border-cyan-400/40 rounded-full cyber-circle"
               style={{
                 width: `${size}px`,
                 height: `${size}px`,
                 top: `${top}%`,
                 left: `${left}%`,
-                animationDuration: '3s'
+                animationDelay: `${delay}s`,
+                animationDuration: `${duration}s`
               }}
             />
           );
@@ -181,13 +225,13 @@ export default function RoomPage() {
 
         {/* 光の線 */}
         <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
         {/* 中央の大きなサークル */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="w-[800px] h-[800px] border-2 border-cyan-400/30 rounded-full" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border-2 border-pink-400/30 rounded-full animate-spin" style={{ animationDuration: '30s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border-2 border-cyan-400/40 rounded-full animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
+          <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] border-2 border-pink-400/30 rounded-full cyber-spin-slow" />
+          <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] border-2 border-cyan-400/40 rounded-full cyber-spin-fast" />
         </div>
       </div>
 
