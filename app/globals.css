@@ -106,3 +106,56 @@ input {
 [contenteditable]:focus:before {
   content: '';
 }
+
+/* 電脳空間エフェクト */
+.cyberspace-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(1000px) rotateX(60deg);
+  transform-origin: center center;
+}
+
+@keyframes cyberspace-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.cyberspace-circle {
+  animation: cyberspace-pulse 3s ease-in-out infinite;
+}
+
+@keyframes cyberspace-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes cyberspace-spin-reverse {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+.cyberspace-spin {
+  animation: cyberspace-spin 30s linear infinite;
+}
+
+.cyberspace-spin-reverse {
+  animation: cyberspace-spin-reverse 20s linear infinite;
+}
