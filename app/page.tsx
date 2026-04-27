@@ -51,6 +51,10 @@ export default function Home() {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               placeholder="例: 少佐"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
               className="w-full px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none transition text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono"
             />
           </div>
@@ -64,6 +68,10 @@ export default function Home() {
               value={roomName}
               onChange={(e) => setRoomName(e.target.value)}
               placeholder="例: project-meeting"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
               className="w-full px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none transition text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono"
             />
           </div>
