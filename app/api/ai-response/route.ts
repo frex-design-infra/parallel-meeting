@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
-
 export async function POST(req: NextRequest) {
+  // 環境変数チェック：未設定の場合は未実装メッセージを返す
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return NextResponse.json(
+      {
+        error: 'AI response feature not configured',
+        message: 'ANTHROPIC_API_KEY environment variable is not set. This feature will be implemented later.'
+      },
+      { status: 501 } // 501 Not Implemented
+    );
+  }
+
+  const anthropic = new Anthropic({
+    apiKey: process.env.ANTHROPIC_API_KEY,
+  });
+
   try {
     const { message, context } = await req.json();
 
