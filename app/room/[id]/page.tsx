@@ -30,14 +30,14 @@ export default function RoomPage() {
     const style = document.createElement('style');
     style.textContent = `
       .cyberspace-grid-effect {
-        position: absolute;
-        inset: 0;
+        position: absolute !important;
+        inset: 0 !important;
         background-image:
           linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px);
-        background-size: 50px 50px;
-        transform: perspective(1000px) rotateX(60deg);
-        transform-origin: center center;
+          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px) !important;
+        background-size: 50px 50px !important;
+        transform: perspective(1000px) rotateX(60deg) !important;
+        transform-origin: center center !important;
       }
 
       @keyframes cyber-pulse {

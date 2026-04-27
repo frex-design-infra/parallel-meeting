@@ -8,6 +8,27 @@ export default function Home() {
   const [roomName, setRoomName] = useState('');
   const [userName, setUserName] = useState('');
 
+  // グリッド線用のCSSを直接埋め込み
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .cyber-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px);
+        background-size: 50px 50px;
+        transform: perspective(1000px) rotateX(60deg);
+        transform-origin: center center;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const createRoom = () => {
     if (!roomName.trim() || !userName.trim()) {
       alert('ルーム名とユーザー名を入力してください');
@@ -32,15 +53,7 @@ export default function Home() {
       {/* 電脳空間風背景 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-50">
         {/* グリッド線 */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(6, 182, 212, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-          transform: 'perspective(1000px) rotateX(60deg)',
-          transformOrigin: 'center center'
-        }} />
+        <div className="cyber-grid" />
 
         {/* サークルエフェクト */}
         {[...Array(20)].map((_, i) => {
