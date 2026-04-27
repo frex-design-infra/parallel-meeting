@@ -35,6 +35,7 @@ export default function RoomPage() {
   const socketRef = useRef<Socket | null>(null);
   const dailyRef = useRef<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
 
   // Socket.io接続
   useEffect(() => {
@@ -96,10 +97,27 @@ export default function RoomPage() {
 
     socketRef.current.emit('chat-message', { roomId, message });
     setMessages(prev => [...prev, message]);
-    setInputText('');
 
     // タチコマAIに応答をリクエスト
     socketRef.current.emit('request-ai-response', { roomId, message: inputText });
+
+    // 入力欄をクリア
+    setInputText('');
+    if (inputRef.current) {
+      inputRef.current.textContent = '';
+    }
+  };
+
+  const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
+    const text = e.currentTarget.textContent || '';
+    setInputText(text);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   const toggleMute = () => {
@@ -204,20 +222,18 @@ export default function RoomPage() {
             {/* 入力エリア - 絶対配置で最下部に固定 */}
             <div className="absolute bottom-0 left-0 right-0 border-t border-cyan-500/30 p-4 bg-gradient-to-r from-slate-900 to-blue-900 backdrop-blur-md shadow-lg shadow-cyan-500/10">
               <div className="flex gap-3">
-                <input
-                  type="text"
-                  name="message-input-unique"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                  placeholder="メッセージを入力..."
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  spellCheck="false"
-                  data-form-type="other"
-                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white placeholder-cyan-300/30 backdrop-blur-sm font-mono"
-                  style={{ backgroundImage: 'none !important' }}
+                <div
+                  ref={inputRef}
+                  contentEditable
+                  onInput={handleInput}
+                  onKeyDown={handleKeyDown}
+                  suppressContentEditableWarning
+                  data-placeholder="メッセージを入力..."
+                  className="flex-1 px-4 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400/50 outline-none text-white backdrop-blur-sm font-mono min-h-[48px] max-h-[120px] overflow-y-auto"
+                  style={{
+                    wordBreak: 'break-word',
+                    whiteSpace: 'pre-wrap'
+                  }}
                 />
                 <button
                   onClick={sendMessage}
