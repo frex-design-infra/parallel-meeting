@@ -147,12 +147,12 @@ export default function RoomPage() {
   return (
     <div className="h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex flex-col overflow-hidden relative">
       {/* 電脳空間風背景 */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
         {/* グリッド線 */}
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(6, 182, 212, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
+            linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px',
           transform: 'perspective(1000px) rotateX(60deg)',
@@ -170,7 +170,7 @@ export default function RoomPage() {
           return (
             <div
               key={i}
-              className="absolute border border-cyan-500/20 rounded-full animate-pulse"
+              className="absolute border-2 border-cyan-400/40 rounded-full animate-pulse"
               style={{
                 width: `${size}px`,
                 height: `${size}px`,
@@ -189,9 +189,9 @@ export default function RoomPage() {
 
         {/* 中央の大きなサークル */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="w-[800px] h-[800px] border border-cyan-500/10 rounded-full" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-pink-500/10 rounded-full animate-spin" style={{ animationDuration: '30s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-cyan-500/15 rounded-full animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
+          <div className="w-[800px] h-[800px] border-2 border-cyan-400/30 rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border-2 border-pink-400/30 rounded-full animate-spin" style={{ animationDuration: '30s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border-2 border-cyan-400/40 rounded-full animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
         </div>
       </div>
 

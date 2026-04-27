@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex items-center justify-center p-4 relative overflow-hidden">
       {/* 電脳空間風背景 */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-50">
         {/* グリッド線 */}
         <div className="absolute inset-0" style={{
           backgroundImage: `
