@@ -160,8 +160,10 @@ export default function RoomPage() {
     socketRef.current.emit('chat-message', { roomId, message });
     // ローカルでの追加を削除（サーバーからのエコーバックで追加される）
 
-    // タチコマAIに応答をリクエスト
-    socketRef.current.emit('request-ai-response', { roomId, message: inputText });
+    // タチコマAIに応答をリクエスト（メッセージに「タチコマ」が含まれている場合のみ）
+    if (inputText.includes('タチコマ') || inputText.includes('tachikoma')) {
+      socketRef.current.emit('request-ai-response', { roomId, message: inputText });
+    }
 
     // 入力欄をクリア
     setInputText('');
@@ -299,7 +301,7 @@ export default function RoomPage() {
 
           {/* チャットエリア */}
           <div className="flex-1 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col min-h-0 overflow-hidden relative">
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin pb-20">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin pb-32">
               {messages.map((msg) => (
                 <div
                   key={msg.id}

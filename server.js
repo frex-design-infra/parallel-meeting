@@ -101,7 +101,8 @@ app.prepare().then(() => {
     });
 
     socket.on('chat-message', (data) => {
-      socket.to(data.roomId).emit('chat-message', data.message);
+      // 送信者を含む全員にメッセージを送信
+      io.to(data.roomId).emit('chat-message', data.message);
     });
 
     socket.on('request-ai-response', async (data) => {
