@@ -33,11 +33,24 @@ export default function RoomPage() {
         position: absolute;
         inset: 0;
         background-image:
-          linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px);
-        background-size: 50px 50px;
-        transform: perspective(1000px) rotateX(60deg);
-        transform-origin: center center;
+          linear-gradient(to right, rgba(6, 182, 212, 0.15) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(6, 182, 212, 0.15) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+      }
+
+      .cyberspace-grid-perspective {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60%;
+        background-image:
+          linear-gradient(to right, rgba(6, 182, 212, 0.3) 2px, transparent 2px),
+          linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 2px, transparent 2px);
+        background-size: 60px 60px;
+        transform: perspective(500px) rotateX(60deg);
+        transform-origin: bottom center;
         pointer-events: none;
       }
 
@@ -197,8 +210,10 @@ export default function RoomPage() {
     <div className="h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex flex-col overflow-hidden relative">
       {/* 電脳空間風背景 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* グリッド線 */}
+        {/* グリッド線（通常） */}
         <div className="cyberspace-grid" />
+        {/* グリッド線（遠近法） */}
+        <div className="cyberspace-grid-perspective" />
 
         {/* サークルエフェクト */}
         {[...Array(15)].map((_, i) => {
